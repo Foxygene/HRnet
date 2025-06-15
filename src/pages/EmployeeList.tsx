@@ -3,6 +3,7 @@ import { useEmployeeStore } from "../store/useEmployeeStore";
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
 import type { Employee } from "../types/employee";
+import "./EmployeeList.css";
 
 export const EmployeeList = () => {
   const employees = useEmployeeStore((state) => state.employees);
@@ -26,6 +27,7 @@ export const EmployeeList = () => {
     {
       name: "Department",
       selector: (row: Employee) => row.department,
+      sortable: true,
     },
     {
       name: "Date of Birth",
@@ -39,24 +41,29 @@ export const EmployeeList = () => {
     {
       name: "City",
       selector: (row: Employee) => row.city,
+      sortable: true,
     },
     {
       name: "State",
       selector: (row: Employee) => row.state,
+      sortable: true,
     },
     {
       name: "Zip Code",
       selector: (row: Employee) => row.zipCode,
+      sortable: true,
     },
   ];
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Current Employees</h1>
-      <DataTable columns={columns} data={employees} pagination />
-      <Link to="/" className="text-blue-500 underline mt-4 inline-block">
-        Home
-      </Link>
+    <div className="employee-container">
+      <div className="employee-card">
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <h1 className="employee-header">HRnet</h1>
+        </Link>
+        <h2 className="employee-title">Current Employees</h2>
+        <DataTable columns={columns} data={employees} pagination />
+      </div>
     </div>
   );
 };
