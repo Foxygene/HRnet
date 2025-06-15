@@ -21,7 +21,6 @@ export const Dropdown = ({
 }: DropdownProps) => {
   return (
     <label>
-      {label}:
       <select value={value} onChange={(e) => onChange(e.target.value)}>
         <option value="">Select {label.toLowerCase()}</option>
         {options.map(({ label, value }) => (
