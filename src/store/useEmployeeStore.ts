@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import employeeListMock from "../mocks/employeeListMock.json";
 
 type Employee = {
   firstName: string;
@@ -19,7 +20,7 @@ type EmployeeStore = {
 };
 
 export const useEmployeeStore = create<EmployeeStore>((set) => ({
-  employees: [],
+  employees: employeeListMock as Employee[],
   addEmployee: (employee) =>
     set((state) => ({
       employees: [...state.employees, employee],
