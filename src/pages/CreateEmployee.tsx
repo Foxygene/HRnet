@@ -1,4 +1,3 @@
-// src/pages/CreateEmployee.tsx
 import { useState } from "react";
 import { useEmployeeStore } from "../store/useEmployeeStore";
 import { states } from "../data/states";
