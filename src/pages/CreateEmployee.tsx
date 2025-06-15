@@ -57,10 +57,11 @@ export const CreateEmployee = () => {
   return (
     <div className="container">
       <h1 className="header">HRnet</h1>
-      <h2 className="title">Create Employee</h2>
       <Link to="/employees" className="link">
         View Current Employees
       </Link>
+      <h2 className="title">Create Employee</h2>
+
       <form onSubmit={handleSubmit} className="form">
         <label>
           First Name:
