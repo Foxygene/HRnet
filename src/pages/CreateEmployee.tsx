@@ -4,6 +4,8 @@ import { states } from "../data/states";
 import { Dropdown } from "../components/Dropdown/Dropdown";
 import "./CreateEmployee.css";
 import { Link } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const departments = [
   "Sales",
@@ -18,13 +20,13 @@ export const CreateEmployee = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    startDate: "",
     department: "",
-    dateOfBirth: "",
     street: "",
     city: "",
     state: "",
     zipCode: "",
+    dateOfBirth: "",
+    startDate: "",
   });
 
   const handleChange = (
@@ -37,6 +39,16 @@ export const CreateEmployee = () => {
     }));
   };
 
+  const handleDateChange = (
+    name: "dateOfBirth" | "startDate",
+    date: Date | null
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: date ? date.toISOString().split("T")[0] : "",
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     addEmployee(formData);
@@ -44,13 +56,13 @@ export const CreateEmployee = () => {
     setFormData({
       firstName: "",
       lastName: "",
-      startDate: "",
       department: "",
-      dateOfBirth: "",
       street: "",
       city: "",
       state: "",
       zipCode: "",
+      dateOfBirth: "",
+      startDate: "",
     });
   };
 
@@ -85,21 +97,29 @@ export const CreateEmployee = () => {
 
         <label>
           Date of Birth:
-          <input
-            type="date"
-            name="dateOfBirth"
-            value={formData.dateOfBirth}
-            onChange={handleChange}
+          <DatePicker
+            selected={
+              formData.dateOfBirth ? new Date(formData.dateOfBirth) : null
+            }
+            onChange={(date) => handleDateChange("dateOfBirth", date)}
+            dateFormat="dd/MM/yyyy"
+            placeholderText="Select date of birth"
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
           />
         </label>
 
         <label>
           Start Date:
-          <input
-            type="date"
-            name="startDate"
-            value={formData.startDate}
-            onChange={handleChange}
+          <DatePicker
+            selected={formData.startDate ? new Date(formData.startDate) : null}
+            onChange={(date) => handleDateChange("startDate", date)}
+            dateFormat="dd/MM/yyyy"
+            placeholderText="Select start date"
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
           />
         </label>
 
