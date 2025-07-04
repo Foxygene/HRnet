@@ -3,9 +3,10 @@ import { useEmployeeStore } from "../store/useEmployeeStore";
 import { states } from "../data/states";
 import { Dropdown } from "../components/Dropdown/Dropdown";
 import "./CreateEmployee.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Modal from "react-modal";
 
 const departments = [
   "Sales",
@@ -15,8 +16,11 @@ const departments = [
   "Legal",
 ];
 
+Modal.setAppElement("#root");
+
 export const CreateEmployee = () => {
   const addEmployee = useEmployeeStore((state) => state.addEmployee);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -28,6 +32,7 @@ export const CreateEmployee = () => {
     dateOfBirth: "",
     startDate: "",
   });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -52,7 +57,7 @@ export const CreateEmployee = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     addEmployee(formData);
-    alert("Employee successfully created!");
+    setModalIsOpen(true);
     setFormData({
       firstName: "",
       lastName: "",
@@ -189,6 +194,25 @@ export const CreateEmployee = () => {
 
         <button type="submit">Create Employee</button>
       </form>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        contentLabel="Employee Created"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
+        <h2>Employee successfully created!</h2>
+        <button
+          className="modal-btn secondary"
+          onClick={() => setModalIsOpen(false)}
+        >
+          Close
+        </button>
+        <button className="modal-btn" onClick={() => navigate("/employees")}>
+          View Employees
+        </button>
+      </Modal>
     </div>
   );
 };
