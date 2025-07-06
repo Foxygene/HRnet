@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEmployeeStore } from "../store/useEmployeeStore";
 import { states } from "../data/states";
-import { Dropdown } from "../components/Dropdown/Dropdown";
+import { Dropdown } from "react-dropdown-pe";
 import "./CreateEmployee.css";
 import { Link, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
